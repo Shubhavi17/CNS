@@ -26,9 +26,38 @@ becomes C. To change a message back, each letter is replaced by the one three be
 ### STEP-4: Else subtract the key from the plain text.
 ### STEP-5: Display the cipher text obtained above.
 
-
-PROGRAM :-
-
-
+## PROGRAM
+```
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+void encrypt(char text[], int shift) {
+for (int i = 0; text[i] != '\0'; i++) {
+if (isalpha(text[i])) {
+char base = isupper(text[i]) ? 'A' : 'a';
+text[i] = (text[i] - base + shift) % 26 + base;
+}
+}
+}
+void decrypt(char text[], int shift) {
+encrypt(text, 26 - shift);
+}
+int main() {
+char message[100];
+int shift;
+printf("Enter the message: ");
+fgets(message, sizeof(message), stdin);
+message[strcspn(message, "\n")] = '\0';
+printf("Enter shift value: ");
+scanf("%d", &shift);
+encrypt(message, shift);
+printf("Encrypted Message: %s\n", message);
+decrypt(message, shift);
+printf("Decrypted Message: %s\n", message);
+return 0;
+}
+```
 
 OUTPUT :-
+![image](https://github.com/user-attachments/assets/2fd3a673-93e0-4663-af10-18b50dde0d04)
+
